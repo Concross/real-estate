@@ -5,7 +5,6 @@ import AddListingForm from '../AddListingForm';
 
 const Listings = () => {
     const { listings, loggedIn } = useContext(AppContext);
-    console.log(loggedIn);
     return (
         <>
             <div className="container">

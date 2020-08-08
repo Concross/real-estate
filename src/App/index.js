@@ -2,7 +2,6 @@ import React, { useEffect, useState, createContext } from 'react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { graphqlOperation, API } from 'aws-amplify';
 import Nav from '../components/Nav';
-import AddListingForm from '../components/AddListingForm';
 import Listings from '../components/Listings';
 import { listListings } from '../graphql/queries';
 import 'bootstrap/dist/css/bootstrap.css';

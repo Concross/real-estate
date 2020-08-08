@@ -10,8 +10,6 @@ const Nav = () => {
         setShowModal(!showModal);
     };
 
-    console.log(auth);
-
     return (
         <header>
             <nav>

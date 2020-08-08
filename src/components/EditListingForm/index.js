@@ -2,23 +2,17 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Storage, API, graphqlOperation } from 'aws-amplify';
 import { AppContext } from '../../App';
-import { createListing, updateCounter } from '../../graphql/mutations';
+import { updateListing } from '../../graphql/mutations';
 
-const AddListingForm = () => {
+const EditListingForm = ({ listingId }) => {
     const { register, handleSubmit, reset } = useForm();
     const { listings, setListings } = useContext(AppContext);
-    console.log(listings);
-    const addListing = async (data) => {
-        console.log(data);
+
+    const editListing = async (data) => {
+        console.log('HEY', data);
         try {
-            const { data: counterData } = await API.graphql(
-                graphqlOperation(updateCounter, {
-                    input: { id: 'MLS_Number' },
-                })
-            );
-            console.log(counterData);
             const { photos, ...listing } = data;
-            listing.mls = counterData.updateCounter.counter;
+            listing.id = listingId;
 
             if (photos) {
                 const gallery = Array.from(photos);
@@ -36,22 +30,28 @@ const AddListingForm = () => {
                 listing.photos = S3Keys;
             }
 
-            setListings([listing, ...listings]);
+            const updatedListings = [...listings].map((currListing) => {
+                if (currListing.id === listingId) {
+                    return listing;
+                }
+                return currListing;
+            });
+            setListings(updatedListings);
             reset();
             await API.graphql(
-                graphqlOperation(createListing, { input: listing })
+                graphqlOperation(updateListing, { input: listing })
             );
         } catch (err) {
-            console.log('error creating listing', err);
+            console.log('error updating listing', err);
         }
     };
 
     return (
-        <div className="modal fade" id="addListingModal">
+        <div className="modal fade" id="editListingModal" data-backdrop="false">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Add a listing</h5>
+                        <h5 className="modal-title">Edit MLS Listing</h5>
                         <button
                             type="button"
                             className="close"
@@ -63,8 +63,8 @@ const AddListingForm = () => {
                     </div>
                     <div className="modal-body">
                         <form
-                            onSubmit={handleSubmit(addListing)}
-                            id="addListingForm"
+                            onSubmit={handleSubmit(editListing)}
+                            id="editListingForm"
                         >
                             <label htmlFor="">
                                 Street 1
@@ -194,8 +194,7 @@ const AddListingForm = () => {
                         <button
                             type="submit"
                             className="btn btn-primary"
-                            form="addListingForm"
-                            data-dismiss="modal"
+                            form="editListingForm"
                         >
                             Submit
                         </button>
@@ -206,4 +205,4 @@ const AddListingForm = () => {
     );
 };
 
-export default AddListingForm;
+export default EditListingForm;

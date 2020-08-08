@@ -1,7 +1,9 @@
 import React from 'react';
+import EditListingForm from '../EditListingForm';
 
 const Listing = ({ listing, editable }) => {
     const {
+        id,
         mls,
         street1,
         street2,
@@ -36,7 +38,17 @@ const Listing = ({ listing, editable }) => {
                 {new Intl.NumberFormat().format(salesPrice)}
             </p>
             <p>Date listed: {listedAt}</p>
-            {editable && <button>edit</button>}
+            {editable && (
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#editListingModal"
+                >
+                    edit
+                </button>
+            )}
+            <EditListingForm listingId={id} />
         </div>
     );
 };
