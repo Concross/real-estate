@@ -1,5 +1,6 @@
 import React from 'react';
 import EditListingForm from '../EditListingForm';
+import DeleteListingModal from '../DeleteListingModal';
 
 const Listing = ({ listing, editable }) => {
     const {
@@ -24,6 +25,16 @@ const Listing = ({ listing, editable }) => {
 
     return (
         <div className="card">
+            {editable && (
+                <button
+                    type="button"
+                    className="close"
+                    data-toggle="modal"
+                    data-target="#deleteListingModal"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            )}
             <p>MLS #: {mls}</p>
             <address>
                 <p>{street1}</p>
@@ -49,6 +60,7 @@ const Listing = ({ listing, editable }) => {
                 </button>
             )}
             <EditListingForm listingId={id} />
+            <DeleteListingModal listingId={id} />
         </div>
     );
 };

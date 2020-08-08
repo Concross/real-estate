@@ -30,7 +30,7 @@ const EditListingForm = ({ listingId }) => {
                 listing.photos = S3Keys;
             }
 
-            const updatedListings = [...listings].map((currListing) => {
+            const updatedListings = listings.map((currListing) => {
                 if (currListing.id === listingId) {
                     return listing;
                 }
