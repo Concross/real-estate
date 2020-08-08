@@ -8,6 +8,7 @@ export const createListing = /* GraphQL */ `
   ) {
     createListing(input: $input, condition: $condition) {
       id
+      mls
       street1
       street2
       city
@@ -35,6 +36,7 @@ export const updateListing = /* GraphQL */ `
   ) {
     updateListing(input: $input, condition: $condition) {
       id
+      mls
       street1
       street2
       city
@@ -62,6 +64,7 @@ export const deleteListing = /* GraphQL */ `
   ) {
     deleteListing(input: $input, condition: $condition) {
       id
+      mls
       street1
       street2
       city
@@ -77,6 +80,45 @@ export const deleteListing = /* GraphQL */ `
       houseSqft
       acreage
       description
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCounter = /* GraphQL */ `
+  mutation CreateCounter(
+    $input: CreateCounterInput!
+    $condition: ModelCounterConditionInput
+  ) {
+    createCounter(input: $input, condition: $condition) {
+      id
+      counter
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCounter = /* GraphQL */ `
+  mutation UpdateCounter(
+    $input: UpdateCounterInput!
+    $condition: ModelCounterConditionInput
+  ) {
+    updateCounter(input: $input, condition: $condition) {
+      id
+      counter
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCounter = /* GraphQL */ `
+  mutation DeleteCounter(
+    $input: DeleteCounterInput!
+    $condition: ModelCounterConditionInput
+  ) {
+    deleteCounter(input: $input, condition: $condition) {
+      id
+      counter
       createdAt
       updatedAt
     }

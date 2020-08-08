@@ -5,6 +5,7 @@ export const getListing = /* GraphQL */ `
   query GetListing($id: ID!) {
     getListing(id: $id) {
       id
+      mls
       street1
       street2
       city
@@ -34,6 +35,7 @@ export const listListings = /* GraphQL */ `
     listListings(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        mls
         street1
         street2
         city
@@ -49,6 +51,33 @@ export const listListings = /* GraphQL */ `
         houseSqft
         acreage
         description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getCounter = /* GraphQL */ `
+  query GetCounter($id: ID!) {
+    getCounter(id: $id) {
+      id
+      counter
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCounters = /* GraphQL */ `
+  query ListCounters(
+    $filter: ModelCounterFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCounters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        counter
         createdAt
         updatedAt
       }

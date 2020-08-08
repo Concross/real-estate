@@ -1,5 +1,6 @@
 type Listing @model {
-    id: ID! # will use as MLS number
+    id: ID!
+    mls: Int!
     street1: String!
     street2: String
     city: String!
@@ -15,4 +16,10 @@ type Listing @model {
     houseSqft: Int!
     acreage: Float!
     description: String
+}
+
+type Counter @model {
+    id: ID!
+    counter: Int
+    createdAt: AWSDateTime
 }

@@ -1,0 +1,19 @@
+{
+    "version" : "2018-05-29",
+    "operation" : "UpdateItem",
+    "key" : {
+        "id" : { "S" : "${context.arguments.input.id}" }
+    },
+    #if($context.arguments.condition)
+        "condition": $utils.transform.toDynamoDBConditionExpression($context.arguments.condition),
+    #end
+    "update": {
+        "expression" : "ADD #counter :incr",
+        "expressionNames": {
+            "#counter" : "counter",
+        },
+        "expressionValues" : {
+            ":incr" : { "N": 1 },
+        }
+    }
+}
