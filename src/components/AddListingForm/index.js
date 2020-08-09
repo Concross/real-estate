@@ -7,16 +7,15 @@ import { createListing, updateCounter } from '../../graphql/mutations';
 const AddListingForm = () => {
     const { register, handleSubmit, reset } = useForm();
     const { listings, setListings } = useContext(AppContext);
-    console.log(listings);
+
     const addListing = async (data) => {
-        console.log(data);
         try {
             const { data: counterData } = await API.graphql(
                 graphqlOperation(updateCounter, {
                     input: { id: 'MLS_Number' },
                 })
             );
-            console.log(counterData);
+
             const { photos, ...listing } = data;
             listing.mls = counterData.updateCounter.counter;
 
@@ -47,7 +46,7 @@ const AddListingForm = () => {
     };
 
     return (
-        <div className="modal fade" id="addListingModal">
+        <div className="modal fade" id="addListingModal" data-backdrop="false">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -195,7 +194,6 @@ const AddListingForm = () => {
                             type="submit"
                             className="btn btn-primary"
                             form="addListingForm"
-                            data-dismiss="modal"
                         >
                             Submit
                         </button>

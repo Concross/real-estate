@@ -5,6 +5,7 @@ import Nav from '../components/Nav';
 import Listings from '../components/Listings';
 import { listListings } from '../graphql/queries';
 import 'bootstrap/dist/css/bootstrap.css';
+import Search from '../components/Search';
 
 export const AppContext = createContext();
 
@@ -43,6 +44,7 @@ const App = () => {
             >
                 <Nav />
                 <h2>MLS Listings</h2>
+                <Search />
                 <Listings />
             </AppContext.Provider>
         </div>
