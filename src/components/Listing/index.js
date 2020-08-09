@@ -102,7 +102,7 @@ const StyledListing = styled.div`
     }
 
     amplify-s3-image {
-        --width: 97.5%;
+        --width: 100%;
     }
 
     h3 {
@@ -117,6 +117,7 @@ const StyledListing = styled.div`
 
     .imageWrapper {
         height: 198px;
+        overflow: hidden;
     }
 `;
 export default Listing;
