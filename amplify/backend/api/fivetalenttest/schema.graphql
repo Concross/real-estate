@@ -1,0 +1,25 @@
+type Listing @model {
+    id: ID!
+    mls: Int!
+    street1: String!
+    street2: String
+    city: String!
+    state: String!
+    zipcode: String!
+    neighboorhood: String
+    salesPrice: Int!
+    listedAt: AWSDate!
+    bedrooms: Int!
+    bathrooms: Int!
+    photos: [String]
+    garageSqft: Int
+    houseSqft: Int!
+    acreage: Float!
+    description: String
+}
+
+type Counter @model {
+    id: ID!
+    counter: Int
+    createdAt: AWSDateTime
+}
