@@ -4,15 +4,17 @@ import { Storage, API, graphqlOperation } from 'aws-amplify';
 import { AppContext } from '../../App';
 import { updateListing } from '../../graphql/mutations';
 
-const EditListingForm = ({ listingId }) => {
-    const { register, handleSubmit, reset } = useForm();
+const EditListingForm = ({ listingToEdit }) => {
+    const { photos: prevPhotos, ...prevListingData } = listingToEdit;
+    const { register, handleSubmit, reset } = useForm({
+        defaultValues: prevListingData,
+    });
     const { listings, setListings } = useContext(AppContext);
 
     const editListing = async (data) => {
-        console.log('HEY', data);
         try {
             const { photos, ...listing } = data;
-            listing.id = listingId;
+            listing.id = listingToEdit.id;
 
             if (photos) {
                 const gallery = Array.from(photos);
@@ -31,7 +33,7 @@ const EditListingForm = ({ listingId }) => {
             }
 
             const updatedListings = listings.map((currListing) => {
-                if (currListing.id === listingId) {
+                if (currListing.id === listingToEdit.id) {
                     return listing;
                 }
                 return currListing;
@@ -47,7 +49,11 @@ const EditListingForm = ({ listingId }) => {
     };
 
     return (
-        <div className="modal fade" id="editListingModal" data-backdrop="false">
+        <div
+            className="modal fade"
+            id={`editListingModal-${listingToEdit.id}`}
+            data-backdrop="false"
+        >
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -64,7 +70,7 @@ const EditListingForm = ({ listingId }) => {
                     <div className="modal-body">
                         <form
                             onSubmit={handleSubmit(editListing)}
-                            id="editListingForm"
+                            id={`editListingForm-${listingToEdit.id}`}
                         >
                             <label htmlFor="">
                                 Street 1
@@ -194,7 +200,7 @@ const EditListingForm = ({ listingId }) => {
                         <button
                             type="submit"
                             className="btn btn-primary"
-                            form="editListingForm"
+                            form={`editListingForm-${listingToEdit.id}`}
                         >
                             Submit
                         </button>

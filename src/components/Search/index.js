@@ -32,7 +32,6 @@ const Search = () => {
     };
 
     const fetchListings = async () => {
-        console.log('here');
         try {
             const listingData = await API.graphql(
                 graphqlOperation(listListings, {
@@ -40,7 +39,6 @@ const Search = () => {
                 })
             );
             const listings = listingData.data.listListings.items;
-            console.log('all the data', listings);
             setListings(listings);
         } catch (err) {
             console.log('Error fetching filtered listing', err);

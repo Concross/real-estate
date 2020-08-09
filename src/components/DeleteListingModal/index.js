@@ -27,7 +27,7 @@ const DeleteListingModal = ({ listingId }) => {
     return (
         <div
             className="modal fade"
-            id="deleteListingModal"
+            id={`deleteListingModal-${listingId}`}
             data-backdrop="false"
         >
             <div className="modal-dialog">
@@ -51,7 +51,7 @@ const DeleteListingModal = ({ listingId }) => {
                     <div className="modal-body">
                         <form
                             onSubmit={handleSubmit(removeListing)}
-                            id="deleteListingForm"
+                            id={`deleteListingForm-${listingId}`}
                         >
                             <label htmlFor="">
                                 MLS #
@@ -70,7 +70,7 @@ const DeleteListingModal = ({ listingId }) => {
                         <button
                             type="submit"
                             className="btn btn-primary red"
-                            form="deleteListingForm"
+                            form={`deleteListingForm-${listingId}`}
                         >
                             DELETE
                         </button>
